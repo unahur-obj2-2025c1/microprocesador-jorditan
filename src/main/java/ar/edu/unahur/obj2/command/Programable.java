@@ -26,7 +26,7 @@ public interface Programable {
 
     void reset();
 
-    void setAddr(Integer addr);
+    void setAddr(Integer direccion, Integer addr);
 
     Integer getAddr(Integer addr);
 }
