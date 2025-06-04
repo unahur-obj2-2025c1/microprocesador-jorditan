@@ -6,8 +6,6 @@ public class AddCommando extends OperableCommand {
   @Override
   public void doExecute(Programable micro) {
     micro.setAcumuladorA(micro.getAcumuladorA() + micro.getAcumuladorB());
+    micro.setAcumuladorB(0);
   }
-
-  @Override
-  public void undo(Programable micro) {}
 }

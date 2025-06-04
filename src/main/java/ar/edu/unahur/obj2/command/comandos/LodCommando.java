@@ -2,7 +2,7 @@ package ar.edu.unahur.obj2.command.comandos;
 
 import ar.edu.unahur.obj2.command.Programable;
 
-public class LodCommando inherits OperableCommand {
+public class LodCommando extends OperableCommand {
   private Integer addr;
 
   public LodCommando(Integer addr) {
@@ -14,8 +14,4 @@ public class LodCommando inherits OperableCommand {
     micro.setAcumuladorA(micro.getAddr(addr));
   }
 
-  @Override
-  public void undo(Programable micro) {
-    throw new UnsupportedOperationException("Unimplemented method 'undo'");
-  }
 }

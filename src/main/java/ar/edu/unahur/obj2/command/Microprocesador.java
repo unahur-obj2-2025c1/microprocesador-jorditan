@@ -1,11 +1,8 @@
 package ar.edu.unahur.obj2.command;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import ar.edu.unahur.obj2.command.comandos.Operable;
 import ar.edu.unahur.obj2.command.excepctions.MicroException;
@@ -15,12 +12,10 @@ public class Microprocesador implements Programable {
   private Integer acumuladorB;
   private Integer programCounter = 0;
   private Map<Integer, Integer> memoria = new HashMap<>();
-
-  // private List<Operable> operaciones = new ArrayList<>();
+  
   @Override
   public void run(List<Operable> operaciones) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'run'");
+    operaciones.forEach(op -> op.execute(this));
   }
 
   @Override
@@ -54,15 +49,21 @@ public class Microprocesador implements Programable {
   }
 
   @Override
-  public void copyFrom(Programable programable) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'copyFrom'");
+  public void copyFrom(Programable otro) {
+    this.acumuladorA = otro.getAcumuladorA();
+    this.acumuladorB = otro.getAcumuladorB();
+    this.programCounter = otro.getProgramCounter();
+    this.memoria = otro.getMemoria();
   }
 
   @Override
   public Programable copy() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'copy'");
+    Microprocesador copia = new Microprocesador();
+    copia.acumuladorA = this.acumuladorA;
+    copia.acumuladorB = this.acumuladorB;
+    copia.programCounter = this.programCounter;
+    copia.memoria = new HashMap<>(this.memoria);  // Copia profunda
+    return copia;
   }
 
   @Override
@@ -80,8 +81,19 @@ public class Microprocesador implements Programable {
   @Override
   public Integer getAddr(Integer direccion) {
     if (direccion > 1023) {
-      new MicroException("La memoria solo puede ser accedida de la dirección 0 a la 1023");
+      throw new MicroException("La memoria solo puede ser accedida de la dirección 0 a la 1023");
     }
     return memoria.getOrDefault(direccion, 0); 
+  }
+
+  @Override 
+  public void undo(List<Operable>operaciones) {
+    Integer longitud = operaciones.size();
+    operaciones.get(longitud - 1).undo(this);;
+  }
+
+  @Override
+  public Map<Integer, Integer> getMemoria() {
+    return this.memoria;
   }
 }

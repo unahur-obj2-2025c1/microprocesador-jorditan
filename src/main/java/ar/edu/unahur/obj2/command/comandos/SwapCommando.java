@@ -13,9 +13,5 @@ public class SwapCommando extends OperableCommand {
     micro.setAcumuladorB(actualValA);
   }
 
-  @Override
-  public void undo(Programable micro) {
-    throw new UnsupportedOperationException("Unimplemented method 'undo'");
-  }
   
 }

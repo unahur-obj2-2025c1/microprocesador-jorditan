@@ -3,19 +3,15 @@ package ar.edu.unahur.obj2.command.comandos;
 import ar.edu.unahur.obj2.command.Programable;
 
 public class LodvCommando extends OperableCommand {
+  private Integer valor;
 
   public LodvCommando(Programable micro, Integer val) {
-    micro.setAcumuladorA(val);
+    this.valor = val;
   }
 
   @Override
   public void doExecute(Programable micro) {
-    
-  }
-
-  @Override
-  public void undo(Programable micro) {
-    throw new UnsupportedOperationException("Unimplemented method 'undo'");
+    micro.setAcumuladorA(valor);
   }
   
 }
